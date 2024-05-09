@@ -1,0 +1,10 @@
+body {
+    margin: 0;
+    direction: rtl;
+}
+
+* {
+    font-family: 'IranYekan';
+    text-decoration: none;
+    list-style: none;
+}
