@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Gallery;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rules\File;
 
 class GalleryController extends Controller
 {
@@ -12,23 +16,37 @@ class GalleryController extends Controller
      */
     public function index()
     {
-        //
+        $data = Gallery::all();
+        return response()->json(['data'=>$data],Response::HTTP_OK);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function upload(Request $request)
     {
-        //
+
+        $validator = Validator::make($request->all(), [
+            'image' => [
+                'required',
+                File::image()
+                    ->min(50)
+                    ->max(12*1024)
+            ]
+        ]);
+
+        if($validator->fails()){
+            return response()->json(['msg'=>$validator->messages(),'status'=>400],Response::HTTP_BAD_REQUEST);
+        }
+
+        $gallery = new Gallery();
+        $dateNow = time();
+        $file = $request->file('image');
+        $fileName = $dateNow . '_' . $file->getClientOriginalName();
+        $destinationPath = 'galleries';
+        $file->move($destinationPath, $fileName);
+
+        $gallery->image =  $fileName;
+        $gallery->save();
+        return response()->json(['data'=>$fileName],Response::HTTP_OK);
     }
 
     /**
