@@ -1,10 +1,13 @@
 import * as Vsc from "react-icons/vsc";
+import Upload from "./components/Upload";
+import Header from "./components/Header";
 
 function App() {
   return (
     <div className="App vh-100 d-flex flex-column justify-content-between">
       <div className="main">
-          محتوا
+          <Header/>
+          <Upload/>
       </div>
 
       <div className="footer text-center py-3">
