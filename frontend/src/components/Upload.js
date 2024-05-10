@@ -11,6 +11,8 @@ function Upload() {
     const [imgSrc, setImgSrc] = useState(null)
     const [alert, setAlert] = useState(false);
     const [error, setError] = useState(false);
+    const [isUpload, setIsUpload] = useState(false);
+
 
     const handleSelect = (e) => {
         setFileName(e.target.files[0].name)
@@ -21,6 +23,7 @@ function Upload() {
 
     const handleUpload = e => {
         e.preventDefault();
+        setIsUpload(true)
         setImgSrc(null)
         const formData = new FormData();
         formData.append('image', file);
@@ -40,7 +43,7 @@ function Upload() {
                     setAlert(res.data.msg)
                     setError(true)
                 }
-
+                setIsUpload(false)
                 setTimeout(() => {
                     setAlert(false)
                 }, 5000);
@@ -64,7 +67,7 @@ function Upload() {
                             <div className="form-group d-flex flex-column gap-2">
                                 <label htmlFor="fileInput" className='text-muted'>انتخاب عکس</label>
                                 <div className='d-flex align-items-center gap-2'>
-                                    <input type="file" name="" id="fileInput" className='form-control' onChange={handleSelect} />
+                                    <input type="file" name="" id="fileInput" className='form-control' onChange={handleSelect} disabled={isUpload} />
                                     <button className='btn btn-primary' disabled={!isActive} >
                                         آپلود عکس
                                     </button>
@@ -84,7 +87,7 @@ function Upload() {
                                     <IO5.IoImageOutline size={60} className='text-muted' />
                                 </div>
                                 :
-                                <img src={`http://127.0.0.1:8000/galleries/${imgSrc}`} alt="" className='w-75' />
+                                <img src={`http://127.0.0.1:8000/galleries/${imgSrc}`} alt="" className='w-75 border border-2' />
                         }
 
 

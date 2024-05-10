@@ -39,7 +39,7 @@ body {
 
 .upload img {
     height: 300px;
-    object-fit: cover;
+    object-fit: contain;
 }
 
 .upload .img-fake {
@@ -67,4 +67,48 @@ body {
 
 .upload .fileName .name {
     direction: ltr;
+}
+
+.gallery img {
+    height: 300px;
+    object-fit: cover;
+}
+
+.gallery .imgBox .imgBox-b {
+    background-color: rgba(30, 28, 49, 0.9);
+    border-top: 2px solid #dcdde1;
+    bottom: -40px;
+    -webkit-transition: 0.3s ease-in-out;
+    -ms-transition: 0.3s ease-in-out;
+    -o-transition: 0.3s ease-in-out;
+}
+
+.gallery .imgBox .imgBox-b .name {
+    font-size: 12px;
+    color: #fff;
+    direction: ltr;
+}
+
+.gallery .imgBox .imgBox-b .delete {
+    color: #ff7979;
+    transition: 0.2s ease-in;
+    -ms-transition: 0.2s ease-in;
+    -o-transition: 0.2s ease-in;
+    -webkit-transition: 0.2s ease-in;
+}
+
+.gallery .imgBox .imgBox-b .delete:hover {
+    color: #eb4d4b;
+    transition: 0.2s ease-in;
+    -ms-transition: 0.2s ease-in;
+    -o-transition: 0.2s ease-in;
+    -webkit-transition: 0.2s ease-in;
+}
+
+.gallery .imgBox:hover .imgBox-b {
+    bottom: 0;
+    transition: 0.3s ease-in-out;
+    -webkit-transition: 0.3s ease-in-out;
+    -ms-transition: 0.3s ease-in-out;
+    -o-transition: 0.3s ease-in-out;
 }
