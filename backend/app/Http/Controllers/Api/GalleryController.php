@@ -34,7 +34,7 @@ class GalleryController extends Controller
         ]);
 
         if($validator->fails()){
-            return response()->json(['msg'=>$validator->messages(),'status'=>400],Response::HTTP_BAD_REQUEST);
+            return response()->json(['msg'=>$validator->messages(),'status'=>400],Response::HTTP_OK);
         }
 
         $gallery = new Gallery();
@@ -46,7 +46,7 @@ class GalleryController extends Controller
 
         $gallery->image =  $fileName;
         $gallery->save();
-        return response()->json(['data'=>$fileName],Response::HTTP_OK);
+        return response()->json(['image'=>$fileName,'status'=>200],Response::HTTP_OK);
     }
 
     /**
