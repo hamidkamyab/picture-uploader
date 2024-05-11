@@ -22,3 +22,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/upload',[GalleryController::class,'upload']);
 Route::get('/gallery',[GalleryController::class,'index']);
+Route::get('/delete/{id}',[GalleryController::class,'destroy']);

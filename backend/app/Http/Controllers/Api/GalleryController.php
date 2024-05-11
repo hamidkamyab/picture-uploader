@@ -6,8 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Gallery;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rules\File;
+use Illuminate\Validation\Rules\File as FileRule;
 
 class GalleryController extends Controller
 {
@@ -16,7 +17,7 @@ class GalleryController extends Controller
      */
     public function index()
     {
-        $data = Gallery::all();
+        $data = Gallery::orderBy('id','DESC')->get();
         return response()->json(['images'=>$data],Response::HTTP_OK);
     }
 
@@ -27,7 +28,7 @@ class GalleryController extends Controller
         $validator = Validator::make($request->all(), [
             'image' => [
                 'required',
-                File::image()
+                FileRule::image()
                     ->min(50)
                     ->max(12*1024)
             ]
@@ -78,6 +79,14 @@ class GalleryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $image = Gallery::findOrFail($id);
+        $fileName = $image->image;
+        $result = File::delete('galleries/'.$fileName);
+        $image->delete();
+        if($result){
+            return response()->json(['status'=>200],Response::HTTP_OK);
+        }else{
+            return response()->json(['status'=>400],Response::HTTP_OK);
+        }
     }
 }

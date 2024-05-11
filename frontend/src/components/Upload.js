@@ -2,6 +2,8 @@
 import React, { useState } from 'react'
 import * as IO5 from "react-icons/io5";
 import ProgressBar from './ProgressBar';
+import Header from "./Header";
+import Footer from './Footer';
 
 function Upload() {
     const [fileName, setFileName] = useState('-')
@@ -18,6 +20,7 @@ function Upload() {
         setFileName(e.target.files[0].name)
         setFile(e.target.files[0])
         setIsActive(true)
+        setUploadProgress(0)
     }
 
 
@@ -52,6 +55,7 @@ function Upload() {
 
     return (
         <>
+            <Header />
             {
                 alert &&
                 <ul className={`alert ps-5 rounded-0 ${error?'alert-danger':'alert-success'}`}>
@@ -94,6 +98,8 @@ function Upload() {
                     </div>
                 </div>
             </div>
+
+            <Footer />
         </>
     )
 }
