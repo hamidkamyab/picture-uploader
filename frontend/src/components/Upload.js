@@ -24,13 +24,13 @@ function Upload() {
     }
 
 
-    const handleUpload = e => {
+    const handleUpload = async(e) => {
         e.preventDefault();
         setIsUpload(true)
         setImgSrc(null)
         const formData = new FormData();
         formData.append('image', file);
-        axios.post('http://127.0.0.1:8000/api/upload', formData, {
+        await axios.post('http://127.0.0.1:8000/api/upload', formData, {
             onUploadProgress: (ProgressEvent) => {
                 setUploadProgress(
                     parseInt(Math.round((ProgressEvent.loaded * 100) / ProgressEvent.total))

@@ -11,8 +11,8 @@ function Gallery() {
     const [images, setImages] = useState([])
     const [isLoading, setIsLoading] = useState(true)
 
-    const handleDelImg = (id) => {
-        axios.get(`http://127.0.0.1:8000/api/delete/${id}`)
+    const handleDelImg = async(id) => {
+        await axios.get(`http://127.0.0.1:8000/api/delete/${id}`)
             .then(res => {
                 if (res.status == 200) {
                     document.querySelector('#img-' + id).remove();
@@ -23,8 +23,8 @@ function Gallery() {
             })
     }
 
-    useEffect(() => {
-        axios.get('http://127.0.0.1:8000/api/gallery')
+    useEffect(async() => {
+        await axios.get('http://127.0.0.1:8000/api/gallery')
             .then(res => {
                 setImages(res.data.images)
                 setIsLoading(false)
