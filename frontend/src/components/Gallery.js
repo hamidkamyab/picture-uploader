@@ -22,13 +22,19 @@ function Gallery() {
                 }
             })
     }
-
-    useEffect(async() => {
-        await axios.get('http://127.0.0.1:8000/api/gallery')
+	
+	const handleShowImg = async()=>{
+		await axios.get('http://127.0.0.1:8000/api/gallery')
             .then(res => {
                 setImages(res.data.images)
                 setIsLoading(false)
-            })
+        })
+	}
+
+    useEffect(() => {
+        return () => {
+			handleShowImg()
+		};
     }, []);
 
     return (
